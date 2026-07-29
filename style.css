@@ -1,0 +1,488 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#ece4d8;
+    font-family:Georgia,serif;
+    overflow-y:auto;
+overflow-x:hidden;
+}
+
+.container{
+    text-align:center;
+    position:relative;
+    overflow:visible;
+    top:20px;
+}
+
+.envelope{
+    position:relative;
+    width:260px;
+    height:170px;
+    margin:auto;
+    cursor:pointer;
+}
+
+.back{
+    position:absolute;
+    width:260px;
+    height:170px;
+    background:#d8c1a6;
+    border-radius:8px;
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
+    z-index:1;
+}
+
+.flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:130px solid transparent;
+    border-right:130px solid transparent;
+    border-top:90px solid #c8aa87;
+    transform-origin:top;
+    transition:1s ease;
+    z-index:2;
+}
+
+.front{
+    position:absolute;
+    bottom:0;
+    width:0;
+    height:0;
+    border-left:130px solid #d6b996;
+    border-right:130px solid #d6b996;
+    border-top:85px solid transparent;
+    z-index:1;
+}
+
+.seal{
+    position:absolute;
+    left:50%;
+    top:55%;
+    transform:translate(-50%,-50%);
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#9f6655;
+    box-shadow:0 5px 12px rgba(0,0,0,.25);
+    z-index:1;
+}
+
+.text{
+    margin-top:35px;
+    letter-spacing:5px;
+    color:#6e5d4c;
+    font-size:15px;
+}.letter{
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    transform:translateX(-50%);
+    width:290px;
+    min-height:300px;
+    background:#fffdf8;
+    border-radius:10px;
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+    padding:25px 45px;
+    text-align:center;
+    transition:transform 2s ease;
+    z-index:9999;
+    overflow:hidden;
+}
+
+/* Roses dans les coins */
+.letter::before{
+    content:"🌹";
+    position:absolute;
+    top:15px;
+    left:15px;
+    font-size:28px;
+}
+
+.letter::after{
+    content:"🌹";
+    position:absolute;
+    bottom:15px;
+    right:15px;
+    font-size:28px;
+}
+
+/* Roses sur les côtés */
+.rose-left,
+.rose-right{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    font-size:22px;
+}
+
+.rose-left{
+    left:10px;
+}
+
+.rose-right{
+    right:10px;
+}
+
+.letter p{
+    position:relative;
+    z-index:2;
+    font-size:17px;
+    line-height:1.6;
+    color:#4b4b4b;
+}/* ---------- GALERIE ---------- */
+
+/* ================= PRESENTATION ================= */
+
+.presentation{
+
+min-height:100vh;
+background:#111;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:40px;
+
+}
+
+.presentation h1{
+
+color:white;
+font-size:42px;
+margin-bottom:35px;
+font-weight:300;
+
+}
+
+.grande-image{
+
+width:80%;
+max-width:900px;
+height:550px;
+object-fit:cover;
+border-radius:22px;
+box-shadow:0 15px 45px rgba(0,0,0,.45);
+animation:fade .7s;
+
+}
+
+.presentation h2{
+
+margin-top:25px;
+color:white;
+font-size:34px;
+font-weight:400;
+
+}
+
+.suivant{
+
+margin-top:35px;
+padding:15px 45px;
+font-size:20px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+background:white;
+transition:.3s;
+
+}
+
+.suivant:hover{
+
+transform:scale(1.08);
+
+}
+
+/* ================= GALERIE ================= */
+
+.galerie-finale{
+    min-height:100vh;
+    background:#f6f6f6;
+    padding:60px;
+    overflow-y:auto;
+}
+
+
+.polaroids{
+
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:45px;
+max-width:1200px;
+margin:auto;
+
+}
+
+.photo{
+
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 12px 30px rgba(0,0,0,.2);
+cursor:pointer;
+transition:.35s;
+
+}
+
+.photo:hover{
+
+transform:rotate(-2deg) scale(1.03);
+
+}
+
+.photo img{
+
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+border-radius:5px;
+
+}
+
+.photo p{
+
+text-align:center;
+margin-top:15px;
+font-size:22px;
+
+}
+
+.polaroids .photo:last-child{
+
+grid-column:1 / span 2;
+max-width:500px;
+justify-self:center;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:900px){
+
+.grande-image{
+
+width:95%;
+height:350px;
+
+}
+
+.presentation h1{
+
+font-size:30px;
+
+}
+
+.presentation h2{
+
+font-size:25px;
+
+}
+
+.polaroids{
+
+grid-template-columns:1fr;
+
+}
+
+.polaroids .photo:last-child{
+
+grid-column:auto;
+max-width:100%;
+
+}
+
+}.confirmation{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+    animation:fade 0.6s;
+}
+
+.confirmation h1{
+    font-size:2.3rem;
+    margin-bottom:20px;
+    color:#2d2d2d;
+}
+
+.confirmation h2{
+    margin-top:20px;
+    font-size:1.8rem;
+    color:#444;
+}
+
+.confirmation p{
+    margin-top:10px;
+    font-size:1.1rem;
+    color:#666;
+}
+
+.confirmation .grande-image{
+    width:500px;
+    max-width:90%;
+    border-radius:20px;
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.confirmation .grande-image:hover{
+    transform:scale(1.02);
+}
+
+.boutons{
+    margin-top:35px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.boutons button{
+    padding:14px 35px;
+    border:none;
+    border-radius:12px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+    background:#111;
+    color:white;
+}
+
+.boutons button:hover{
+    transform:translateY(-3px);
+    background:#333;
+}.calendrier,
+.heure,
+.fin{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    text-align:center;
+    padding:60px 20px 120px;
+    animation:fade .6s;
+    overflow-y:auto;
+}
+
+
+.calendrier h1,
+.heure h1,
+.fin h1{
+    font-size:2.5rem;
+    margin-bottom:30px;
+    color:#2d2d2d;
+}
+
+.calendrier input,
+.heure input{
+    padding:15px;
+    font-size:18px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    margin-bottom:30px;
+    width:280px;
+    text-align:center;
+}
+
+.calendrier button,
+.heure button,
+.fin button{
+    padding:15px 40px;
+    border:none;
+    border-radius:12px;
+    background:#111;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.calendrier button:hover,
+.heure button:hover,
+.fin button:hover{
+    background:#333;
+    transform:translateY(-3px);
+}
+
+.fin p{
+    font-size:1.15rem;
+    color:#555;
+    margin:8px 0;
+}
+
+.fin h2{
+    margin-top:30px;
+    font-size:2rem;
+    color:#111;
+}.fin .grande-image{
+    width:500px;
+    max-width:90%;
+    margin:30px 0;
+    border-radius:20px;
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+.fin h2{
+    margin-bottom:20px;
+}.merci{
+    min-height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    animation:fade .8s;
+}
+
+.merci h1{
+    font-size:3rem;
+    margin-bottom:20px;
+}
+
+.merci h2{
+    margin-top:35px;
+    font-size:2rem;
+}
+
+.merci p{
+    font-size:1.2rem;
+    color:#555;
+    max-width:600px;
+    line-height:1.7;
+}
