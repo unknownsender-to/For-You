@@ -8,23 +8,30 @@ const activites = [
     { titre: "Cinéma", image: "cinema.png.JPG", emoji: "🎬" },
     { titre: "Musée", image: "musee.png.JPG", emoji: "🏛️" },
     { titre: "Maison", image: "maison.png.JPG", emoji: "🏠" },
-    { titre: "Picnic", image: "picnic.png", emoji: "🧺" }
+    { titre: "Picnic", image: "picnic.png.JPG", emoji: "🧺" }
 ];
 
+// Déblocage automatique du son dès le premier clic/toucher sur l'écran
+document.addEventListener('click', function initAudio() {
+    const musique = document.getElementById("background-music");
+    if (musique.paused) {
+        musique.volume = 1.0;
+        musique.play().catch(e => console.log("Audio en attente :", e));
+    }
+}, { once: true });
+
 function ouvrirEnveloppe() {
-    // Déclenchement forcé de l'audio au toucher de l'enveloppe
     const musique = document.getElementById("background-music");
     musique.volume = 1.0;
     musique.play().catch(error => console.log("Lecture audio bloquée :", error));
 
-    const lettre = document.getElementById("lettre-amour");
-    lettre.style.transform = "translateX(-50%) translateY(-115px) scale(1.03)";
-    lettre.style.opacity = "1";
+    const enveloppeWrapper = document.querySelector(".envelope-wrapper");
+    enveloppeWrapper.classList.add("ouvert");
 
     setTimeout(() => {
         document.getElementById("enveloppe-section").style.display = "none";
         afficherActiviteSuivante();
-    }, 1000);
+    }, 1100);
 }
 
 function afficherActiviteSuivante() {
@@ -36,7 +43,7 @@ function afficherActiviteSuivante() {
         section.innerHTML = `
             <h2 class="titre-etape">Où veux-tu qu'on aille ?</h2>
             <div class="carte-activite">
-                <img src="${act.image}" alt="${act.titre}" class="image-activite" onerror="this.src='picnic.png'">
+                <img src="${act.image}" alt="${act.titre}" class="image-activite" onerror="this.src='picnic.png.JPG'">
                 <p class="nom-activite">${act.emoji} ${act.titre}</p>
             </div>
             <button class="btn-suivant" onclick="etapeSuivante()">Suivant -></button>
@@ -126,24 +133,4 @@ function validerHeure() {
     
     document.getElementById("container-image-validation").innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite" onerror="this.style.display='none'">`;
     document.getElementById("grille-fin").style.display = "grid";
-}
-
-// --- Enchaînement automatique des 12 vidéos de fond ---
-const listeVideosFond = [
-    "video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4", 
-    "video5.mp4", "video6.mp4", "video7.mp4", "video8.mp4", 
-    "video9.mp4", "video10.mp4", "video11.mp4", "video12.mp4"
-]; 
-
-let indexVideoActuelle = 0;
-const videoElement = document.getElementById("bg-video");
-
-if (videoElement) {
-    videoElement.addEventListener("ended", function() {
-        indexVideoActuelle = (indexVideoActuelle + 1) % listeVideosFond.length;
-        videoElement.src = listeVideosFond[indexVideoActuelle];
-        videoElement.play().catch(e => console.log("Erreur lecture vidéo fond:", e));
-    });
-
-    videoElement.play().catch(e => console.log("Autoplay bloqué:", e));
 }
