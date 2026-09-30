@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notre Surprise</title>
+    <title>Pour Sara</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Vidéo en arrière-plan -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="video1.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+    </video>
+
     <!-- Musique de fond -->
     <audio id="background-music" loop>
-        <source src="musique.mp3" type="audio/mp3">
-        Votre navigateur ne supporte pas l'élément audio.
+        <source src="Daniel Caesar - Best Part (Audio) ft. H.E.R..mp3" type="audio/mp3">
     </audio>
 
     <div class="main-container">
@@ -33,12 +38,12 @@
 
         <!-- SECTION 2 : Les Activités (générées par JS) -->
         <div id="activite-section" class="section" style="display: none;">
-            <!-- Injecté dynamiquement -->
+            <!-- Injecté dynamiquement par le script -->
         </div>
 
         <!-- SECTION 3 : La grande question -->
         <div id="question-section" class="section" style="display: none;">
-            <h2 id="texte-question">Accepterais-tu de partager un moment avec moi ?</h2>
+            <h2 id="texte-question" class="titre-etape">Accepterais-tu de partager un moment avec moi ?</h2>
             <div id="container-image-question"></div>
             <div class="buttons-container">
                 <button id="btn-oui" class="btn-choix oui" onclick="validerOui()">Oui</button>
@@ -48,27 +53,38 @@
 
         <!-- SECTION 4 : Choix de la date -->
         <div id="date-section" class="section" style="display: none;">
-            <h2>Quel jour ?</h2>
+            <h2 class="titre-etape">Quel jour ?</h2>
             <input type="date" id="date-input" class="input-date-heure">
             <button class="btn-suivant" onclick="validerDate()">Suivant -></button>
         </div>
 
         <!-- SECTION 5 : Choix de l'heure -->
         <div id="heure-section" class="section" style="display: none;">
-            <h2>À quelle heure ?</h2>
+            <h2 class="titre-etape">À quelle heure ?</h2>
             <input type="time" id="heure-input" class="input-date-heure">
             <button class="btn-suivant" onclick="validerHeure()">C'est parti !</button>
         </div>
 
         <!-- SECTION 6 : Validation finale -->
         <div id="validation-section" class="section" style="display: none;">
-            <h2>C'est validé ! 🎉</h2>
+            <h2 class="titre-etape">C'est validé ! 🎉</h2>
             <div id="container-image-validation"></div>
-            <div class="grille-fin" id="grille-fin">
-                <!-- Tes petites photos souvenirs ou icônes de fin si tu veux -->
-            </div>
         </div>
 
+    </div>
+
+    <!-- Grille de fin avec les photos -->
+    <div id="grille-fin" class="fond-images-fin" style="display: none;">
+        <img src="photo1.png" alt="">
+        <img src="photo2.png" alt="">
+        <img src="photo3.png" alt="">
+        <img src="photo4.png" alt="">
+        <img src="photo5.png" alt="">
+        <img src="photo6.png" alt="">
+        <img src="photo7.png" alt="">
+        <img src="photo8.png" alt="">
+        <img src="photo9.png" alt="">
+        <img src="picnic.png" alt="">
     </div>
 
     <script src="script.js"></script>
