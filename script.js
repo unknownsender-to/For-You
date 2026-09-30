@@ -1,12 +1,28 @@
 let etapeActuelle = 0;
 let compteurNon = 0;
 
+// Playlist des 3 vidéos en boucle automatique
+const playlistVideos = ["video1.mp4", "video8.mp4", "video9.mp4"];
+let indexVideoActuelle = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+    const videoElement = document.getElementById("bg-video");
+    if (videoElement) {
+        videoElement.addEventListener("ended", () => {
+            indexVideoActuelle = (indexVideoActuelle + 1) % playlistVideos.length;
+            videoElement.src = playlistVideos[indexVideoActuelle];
+            videoElement.load();
+            videoElement.play().catch(e => console.log("Lecture vidéo suivante en attente :", e));
+        });
+    }
+});
+
 const activites = [
     { titre: "Balade", image: "balade.png.JPG", emoji: "🌅" },
     { titre: "Manger", image: "restaurant.png.JPG", emoji: "🍜" },
     { titre: "Scooter", image: "scooter.png.JPG", emoji: "🛵" },
     { titre: "Cinéma", image: "cinema.png.JPG", emoji: "🎬" },
-    { titre: "Musée", image: "musee.png.JPG", emoji: "🏛️" },
+    { titre: "Musée", image: "musee.png.JPG", emoji: "🏛️️" },
     { titre: "Maison", image: "maison.png.JPG", emoji: "🏠" },
     { titre: "Picnic", image: "picnic.png.JPG", emoji: "🧺" }
 ];
