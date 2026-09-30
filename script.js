@@ -134,22 +134,3 @@ function validerHeure() {
     document.getElementById("container-image-validation").innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite" onerror="this.style.display='none'">`;
     document.getElementById("grille-fin").style.display = "grid";
 }
-
-// --- Enchaînement des 12 vidéos de fond ---
-const listeVideosFond = [
-    "video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4", 
-    "video5.mp4", "video6.mp4", "video7.mp4", "video8.mp4", 
-    "video9.mp4", "video10.mp4", "video11.mp4", "video12.mp4"
-]; 
-
-let indexVideoActuelle = 0;
-const videoElement = document.getElementById("bg-video");
-
-if (videoElement) {
-    videoElement.addEventListener("ended", function() {
-        indexVideoActuelle = (indexVideoActuelle + 1) % listeVideosFond.length;
-        videoElement.src = listeVideosFond[indexVideoActuelle];
-        videoElement.load();
-        videoElement.play().catch(e => console.log("Erreur lecture vidéo:", e));
-    });
-}
