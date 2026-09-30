@@ -1,181 +1,193 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #000;
-    color: #fff;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
-/* Vidéo en arrière-plan plein écran */
-#bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* Style de l'enveloppe */
-.container {
-    text-align: center;
-    z-index: 2;
-}
-
-.envelope {
-    position: relative;
-    width: 250px;
-    height: 160px;
-    background: #e0ac69;
-    margin: 0 auto 20px auto;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    border-radius: 5px;
-}
-
-.envelope .back {
-    position: absolute;
+.main-container {
     width: 100%;
-    height: 100%;
-    background: #d4a373;
-    border-radius: 5px;
-}
-
-.envelope .flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 125px solid transparent;
-    border-right: 125px solid transparent;
-    border-top: 90px solid #faedcd;
-    transform-origin: top;
-    transition: transform 0.4s ease;
-}
-
-.envelope:hover .flap {
-    transform: rotateX(180deg);
-}
-
-.text {
-    font-size: 1.2rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-}
-
-/* Sections et formulaires */
-section {
-    position: absolute;
+    max-width: 400px;
+    padding: 20px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    max-width: 450px;
-    width: 90%;
-    z-index: 10;
-    animation: fade 0.5s ease-in-out;
-}
-
-section h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-section p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-
-.grande-image {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.boutons {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
 }
 
-button, input {
-    padding: 12px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    outline: none;
-}
-
-button {
-    background-color: #ff477e;
-    color: white;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background-color: #ff206e;
-}
-
-input[type="date"], input[type="time"] {
-    background: white;
-    color: #333;
+.section {
     width: 100%;
-    margin-bottom: 15px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-@keyframes fade {
+@keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@media screen and (max-width: 768px) {
-    section {
-        width: 95%;
-        padding: 20px;
-    }
+/* --- Style de l'enveloppe --- */
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
-/* Style pour la grille des 10 images en fond à la fin */
-.fond-images-fin {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
+.envelope {
+    width: 280px;
+    height: 180px;
+    background-color: #d1b59a;
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.letter {
+    position: absolute;
+    width: 240px;
+    background: #fdfbf7;
+    color: #2c2c2c;
     padding: 20px;
-    z-index: 1; 
-    opacity: 0.3; 
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    top: 10px;
+    left: 20px;
+    transform: translateY(0);
+    transition: transform 0.8s ease, opacity 0.5s ease;
+    z-index: 2;
+    text-align: left;
+    opacity: 0.9;
+}
+
+.letter h2 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-family: serif;
+}
+
+.letter p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.envelope-pocket {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 100px solid #c2a385;
+    border-radius: 0 0 10px 10px;
+    z-index: 3;
     pointer-events: none;
 }
 
-.fond-images-fin img {
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 90px solid #b39273;
+    z-index: 4;
+    transform-origin: top;
+    transition: transform 0.4s ease;
+}
+
+.envelope-wrapper:hover .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.instruction-clic {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+/* --- Style des activités --- */
+.titre-etape {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.carte-activite {
     width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.image-activite {
+    width: 100%;
+    max-height: 340px;
     object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.nom-activite {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* --- Boutons --- */
+.btn-suivant, .btn-choix {
+    background-color: white;
+    color: black;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+}
+
+.btn-suivant:hover, .btn-choix:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.02);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-choix.non {
+    background-color: #333;
+    color: white;
+}
+
+/* --- Champs Date et Heure --- */
+.input-date-heure {
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    margin: 20px 0;
+    width: 100%;
+    text-align: center;
 }
