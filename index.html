@@ -8,15 +8,15 @@
 </head>
 <body>
 
-    <!-- Vidéo en arrière-plan dynamique (pour l'enchaînement des 12 vidéos) -->
-    <video muted playsinline id="bg-video">
+    <!-- Vidéo en arrière-plan (lecture en boucle universelle et fluide sur mobile) -->
+    <video autoplay muted playsinline loop id="bg-video">
         <source src="video1.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
 
-    <!-- Musique de fond -->
+    <!-- Musique de fond (nom exact de ton fichier .m4a) -->
     <audio id="background-music" preload="auto" loop>
-        <source src="Daniel Caesar - Best Part (Audio) ft. H.E.R..mp3" type="audio/mp3">
+        <source src="Daniel Caesar - Best Part (Audio) ft. H.E.R. - H.E.R. (128k).m4a" type="audio/mp4">
     </audio>
 
     <div class="main-container">
@@ -36,7 +36,7 @@
             <p class="instruction-clic">TOUCHE LA LETTRE</p>
         </div>
 
-        <!-- SECTION 2 : Les Activités (Défilé puis Récapitulatif) -->
+        <!-- SECTION 2 : Les Activités -->
         <div id="activite-section" class="section" style="display: none;"></div>
 
         <!-- SECTION 3 : La grande question -->
@@ -66,13 +66,13 @@
         <!-- SECTION 6 : Validation finale -->
         <div id="validation-section" class="section" style="display: none;">
             <h2 class="titre-etape">C'est validé ! 🎉</h2>
-            <p class="texte-remerciement">Merci d'avoir dit oui... J'ai hâte de passer ce moment avec toi. ❤️</p>
+            <p class="texte-remerciement">Merci a toi je sais qu’on passera un moments formidable ❤️</p>
             <div id="container-image-validation"></div>
         </div>
 
     </div>
 
-    <!-- Grille de fin avec les photos souvenirs -->
+    <!-- Grille de fin -->
     <div id="grille-fin" class="fond-images-fin" style="display: none;">
         <img src="photo1.png" alt="">
         <img src="photo2.png" alt="">
@@ -83,7 +83,7 @@
         <img src="photo7.png" alt="">
         <img src="photo8.png" alt="">
         <img src="photo9.png" alt="">
-        <img src="picnic.png" alt="">
+        <img src="picnic.png.JPG" alt="" onerror="this.style.display='none'">
     </div>
 
     <script src="script.js"></script>
