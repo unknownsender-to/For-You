@@ -1,6 +1,3 @@
-/* ==========================================
-   STYLES GÉNERAUX ET RÉINITIALISATION
-   ========================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,9 +16,6 @@ body {
     position: relative;
 }
 
-/* ==========================================
-   VIDÉO EN ARRIÈRE-PLAN
-   ========================================== */
 #bg-video {
     position: fixed;
     top: 0;
@@ -32,9 +26,6 @@ body {
     z-index: -2;
 }
 
-/* ==========================================
-   CONTENEUR PRINCIPAL ET SECTIONS
-   ========================================== */
 .main-container {
     width: 100%;
     max-width: 400px;
@@ -52,13 +43,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -67,9 +57,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================
-   ENVELOPPE ET LETTRE CENTRÉE NON COUPÉE
-   ========================================== */
+/* --- Enveloppe et lettre parfaitement lisible et centrée --- */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -88,35 +76,36 @@ body {
     overflow: hidden;
 }
 
-/* Lettrage parfaitement centré et entièrement visible */
 .letter {
     position: absolute;
-    width: 90%;
+    width: 92%;
     max-width: 280px;
-    background: #fdfbf7;
-    color: #2c2c2c;
+    background: #fffdf9;
+    color: #111111;
     padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     top: 5px;
     left: 50%;
     transform: translateX(-50%) translateY(0);
     transition: transform 0.8s ease, opacity 0.5s ease;
     z-index: 2;
     text-align: left;
-    opacity: 0.95;
+    opacity: 1;
 }
 
 .letter h2 {
-    font-size: 1rem;
-    margin-bottom: 6px;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
     color: #d90429;
     font-family: serif;
+    font-weight: bold;
 }
 
 .letter p {
-    font-size: 0.8rem;
-    line-height: 1.45;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #222222;
 }
 
 .envelope-pocket {
@@ -151,10 +140,9 @@ body {
     transform: rotateX(180deg);
 }
 
-/* Animation au survol/clic pour faire sortir la lettre sans qu'elle soit coupée */
 .envelope-wrapper:hover .letter, 
 .envelope-wrapper.ouvert .letter {
-    transform: translateX(-50%) translateY(-105px) scale(1.02);
+    transform: translateX(-50%) translateY(-115px) scale(1.02);
 }
 
 .instruction-clic {
@@ -165,13 +153,19 @@ body {
     text-shadow: 0 2px 4px rgba(0,0,0,0.9);
 }
 
-/* ==========================================
-   ACTIVITÉS ET CARTES
-   ========================================== */
+/* --- Activités et grilles --- */
 .titre-etape {
     font-size: 1.3rem;
     margin-bottom: 15px;
     font-weight: 500;
+}
+
+.texte-remerciement {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #ffccd5;
+    text-align: center;
 }
 
 .carte-activite {
@@ -196,9 +190,6 @@ body {
     font-weight: 500;
 }
 
-/* ==========================================
-   GRILLE DES PETITS CARRÉS (RÉCAPITULATIF FIN)
-   ========================================== */
 .grille-petits-carres {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -247,9 +238,6 @@ body {
     border-radius: 4px;
 }
 
-/* ==========================================
-   BOUTONS ET CHAMPS DE SAISIE
-   ========================================== */
 .btn-suivant, .btn-choix {
     background-color: #ffffff;
     color: #000000;
@@ -291,9 +279,6 @@ body {
     text-align: center;
 }
 
-/* ==========================================
-   GRILLE DE FIN (SOUVENIRS)
-   ========================================== */
 .fond-images-fin {
     position: fixed;
     top: 0;
