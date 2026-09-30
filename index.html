@@ -1,37 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <title>Pour Toi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour Sara</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="container">
+    <!-- Vidéo en arrière-plan -->
+    <video id="bg-video" autoplay muted playsinline>
+        <source src="video1.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+    </video>
 
-    <div class="envelope" onclick="ouvrir()">
-
-        <div class="back"></div>
-        <div class="flap"></div>
-        <div class="front"></div>
-        <div class="seal"></div>
-
+    <!-- ÉTAPE 1 : L'enveloppe de départ -->
+    <div class="container" id="section-enveloppe">
+        <div class="envelope" onclick="ouvrir()">
+            <div class="back"></div>
+            <div class="flap"></div>
+            <div class="front"></div>
+            <div class="seal"></div>
+        </div>
+        <div class="text">TOUCHE LA LETTRE</div>
     </div>
 
-    <div class="text">
-        TOUCHE LA LETTRE
-    </div>
+    <!-- ÉTAPE 2 : Confirmation (Oui / Non) -->
+    <section class="confirmation" id="section-confirmation" style="display: none;">
+        <h1>Tu es invité(e) !</h1>
+        <p>Es-tu disponible pour passer un moment ensemble ?</p>
+        <img src="scooter.png" alt="Scooter" class="grande-image">
+        <div class="boutons">
+            <button id="btn-oui">Oui !</button>
+            <button id="btn-non">Non</button>
+        </div>
+    </section>
 
-</div>
+    <!-- ÉTAPE 3 : Choix de la date -->
+    <section class="calendrier" id="section-calendrier" style="display: none;">
+        <h1>Choisis une date</h1>
+        <input type="date" id="input-date">
+        <button id="valider-date">Continuer</button>
+    </section>
 
-<audio id="musique" preload="auto">
-    <source src="Daniel Caesar - Best Part (Audio) ft. H.E.R. - H.E.R. (128k).m4a" type="audio/mp4">
-</audio>
+    <!-- ÉTAPE 4 : Choix de l'heure -->
+    <section class="heure" id="section-heure" style="display: none;">
+        <h1>Choisis une heure</h1>
+        <input type="time" id="input-heure">
+        <button id="valider-heure">Continuer</button>
+    </section>
 
-<script src="script.js"></script>
+    <!-- ÉTAPE 5 : Récapitulatif -->
+    <section class="fin" id="section-fin" style="display: none;">
+        <h1>C'est validé !</h1>
+        <p>Voici un petit aperçu :</p>
+        <img src="cinema.png" alt="Cinema" class="grande-image">
+    </section>
 
+    <!-- ÉTAPE 6 : Merci avec les 10 images en fond -->
+    <section class="merci" id="section-merci" style="display: none;">
+        <!-- Grille des 10 images en arrière-plan -->
+        <div class="fond-images-fin">
+            <img src="photo1.png" alt="Photo 1">
+            <img src="photo2.png" alt="Photo 2">
+            <img src="photo3.png" alt="Photo 3">
+            <img src="photo4.png" alt="Photo 4">
+            <img src="photo5.png" alt="Photo 5">
+            <img src="photo6.png" alt="Photo 6">
+            <img src="photo7.png" alt="Photo 7">
+            <img src="photo8.png" alt="Photo 8">
+            <img src="photo9.png" alt="Photo 9">
+            <img src="photo10.png" alt="Photo 10">
+        </div>
 
+        <!-- Le message de remerciement par-dessus -->
+        <div style="position: relative; z-index: 5;">
+            <h1>J'ai hâte d'y être !</h1>
+            <p>Merci pour tout ❤️</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
