@@ -16,13 +16,13 @@ function ouvrirEnveloppe() {
     musique.play().catch(error => console.log("Lecture audio bloquée :", error));
 
     const lettre = document.getElementById("lettre-amour");
-    lettre.style.transform = "translateY(-130px) scale(1.05)";
+    lettre.style.transform = "translateY(-120px) scale(1.03)";
     lettre.style.opacity = "1";
 
     setTimeout(() => {
         document.getElementById("enveloppe-section").style.display = "none";
         afficherActivite();
-    }, 1200);
+    }, 1000);
 }
 
 function afficherActivite() {
@@ -94,4 +94,5 @@ function validerHeure() {
     validationSec.style.display = "flex";
     
     document.getElementById("container-image-validation").innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite">`;
+    document.getElementById("grille-fin").style.display = "grid";
 }
