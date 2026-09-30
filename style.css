@@ -1,3 +1,6 @@
+/* ==========================================
+   STYLES GÉNERAUX ET RÉINITIALISATION
+   ========================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,6 +19,9 @@ body {
     position: relative;
 }
 
+/* ==========================================
+   VIDÉO EN ARRIÈRE-PLAN
+   ========================================== */
 #bg-video {
     position: fixed;
     top: 0;
@@ -26,6 +32,9 @@ body {
     z-index: -2;
 }
 
+/* ==========================================
+   CONTENEUR PRINCIPAL ET SECTIONS
+   ========================================== */
 .main-container {
     width: 100%;
     max-width: 400px;
@@ -43,11 +52,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -56,7 +67,9 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- ENVELOPPE ET LETTRE --- */
+/* ==========================================
+   ENVELOPPE ET LETTRE CENTRÉE NON COUPÉE
+   ========================================== */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -75,17 +88,19 @@ body {
     overflow: hidden;
 }
 
+/* Lettrage parfaitement centré et entièrement visible */
 .letter {
     position: absolute;
-    width: 230px;
+    width: 90%;
+    max-width: 280px;
     background: #fdfbf7;
     color: #2c2c2c;
-    padding: 15px;
+    padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    top: 10px;
-    left: 15px;
-    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
     transition: transform 0.8s ease, opacity 0.5s ease;
     z-index: 2;
     text-align: left;
@@ -101,7 +116,7 @@ body {
 
 .letter p {
     font-size: 0.8rem;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .envelope-pocket {
@@ -136,6 +151,12 @@ body {
     transform: rotateX(180deg);
 }
 
+/* Animation au survol/clic pour faire sortir la lettre sans qu'elle soit coupée */
+.envelope-wrapper:hover .letter, 
+.envelope-wrapper.ouvert .letter {
+    transform: translateX(-50%) translateY(-105px) scale(1.02);
+}
+
 .instruction-clic {
     margin-top: 15px;
     font-size: 0.85rem;
@@ -144,11 +165,13 @@ body {
     text-shadow: 0 2px 4px rgba(0,0,0,0.9);
 }
 
-/* --- ACTIVITÉS & BOUTONS --- */
+/* ==========================================
+   ACTIVITÉS ET CARTES
+   ========================================== */
 .titre-etape {
     font-size: 1.3rem;
     margin-bottom: 15px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .carte-activite {
@@ -173,6 +196,60 @@ body {
     font-weight: 500;
 }
 
+/* ==========================================
+   GRILLE DES PETITS CARRÉS (RÉCAPITULATIF FIN)
+   ========================================== */
+.grille-petits-carres {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-height: 280px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.petit-carre-activite {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.petit-carre-activite img {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.petit-carre-activite p {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.petit-carre-activite.selectionne {
+    border-color: #d90429;
+    background: rgba(217, 4, 4, 0.25);
+    transform: scale(1.02);
+}
+
+.grille-petits-carres::-webkit-scrollbar {
+    width: 4px;
+}
+.grille-petits-carres::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+}
+
+/* ==========================================
+   BOUTONS ET CHAMPS DE SAISIE
+   ========================================== */
 .btn-suivant, .btn-choix {
     background-color: #ffffff;
     color: #000000;
@@ -214,7 +291,9 @@ body {
     text-align: center;
 }
 
-/* --- GRILLE FINALE --- */
+/* ==========================================
+   GRILLE DE FIN (SOUVENIRS)
+   ========================================== */
 .fond-images-fin {
     position: fixed;
     top: 0;
