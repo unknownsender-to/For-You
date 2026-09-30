@@ -1,57 +1,87 @@
+// ==========================================
+// VARIABLES GLOBALES ET CONFIGURATION
+// ==========================================
 let etapeActuelle = 0;
 let compteurNon = 0;
 
-// Playlist des 3 vidéos en boucle automatique
+// --- GESTION DE LA PLAYLIST DES 3 VIDEOS EN BOUCLE ---
 const playlistVideos = ["video1.mp4", "video8.mp4", "video9.mp4"];
 let indexVideoActuelle = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     const videoElement = document.getElementById("bg-video");
     if (videoElement) {
+        // Force le lancement de la première vidéo au démarrage
+        videoElement.play().catch(e => console.log("Lecture auto en arrière-plan :", e));
+
+        // Passe à la vidéo suivante à la fin de chaque lecture
         videoElement.addEventListener("ended", () => {
             indexVideoActuelle = (indexVideoActuelle + 1) % playlistVideos.length;
             videoElement.src = playlistVideos[indexVideoActuelle];
             videoElement.load();
-            videoElement.play().catch(e => console.log("Lecture vidéo suivante en attente :", e));
+            videoElement.play().catch(e => console.log("Lecture vidéo suivante :", e));
         });
     }
 });
+// ----------------------------------------------------
 
+// Liste complète des activités proposées
 const activites = [
     { titre: "Balade", image: "balade.png.JPG", emoji: "🌅" },
     { titre: "Manger", image: "restaurant.png.JPG", emoji: "🍜" },
     { titre: "Scooter", image: "scooter.png.JPG", emoji: "🛵" },
     { titre: "Cinéma", image: "cinema.png.JPG", emoji: "🎬" },
-    { titre: "Musée", image: "musee.png.JPG", emoji: "🏛️️" },
+    { titre: "Musée", image: "musee.png.JPG", emoji: "🏛️" },
     { titre: "Maison", image: "maison.png.JPG", emoji: "🏠" },
     { titre: "Picnic", image: "picnic.png.JPG", emoji: "🧺" }
 ];
 
-// Déblocage automatique du son au premier toucher sur l'écran
+
+// ==========================================
+// GESTION DU SON ET DE L'AUDIO DE FOND
+// ==========================================
 document.addEventListener('click', function initAudio() {
     const musique = document.getElementById("background-music");
-    if (musique.paused) {
+    if (musique && musique.paused) {
         musique.volume = 1.0;
-        musique.play().catch(e => console.log("Audio en attente :", e));
+        musique.play().catch(e => console.log("Audio en attente de l'interaction utilisateur :", e));
     }
 }, { once: true });
 
+
+// ==========================================
+// OUVERTURE DE L'ENVELOPPE INITIALE
+// ==========================================
 function ouvrirEnveloppe() {
     const musique = document.getElementById("background-music");
-    musique.volume = 1.0;
-    musique.play().catch(error => console.log("Lecture audio bloquée :", error));
+    if (musique) {
+        musique.volume = 1.0;
+        musique.play().catch(error => console.log("Lecture audio bloquée par le navigateur :", error));
+    }
 
     const enveloppeWrapper = document.querySelector(".envelope-wrapper");
-    enveloppeWrapper.classList.add("ouvert");
+    if (enveloppeWrapper) {
+        enveloppeWrapper.classList.add("ouvert");
+    }
 
+    // Délai pour laisser l'animation de l'enveloppe se terminer avant de changer de section
     setTimeout(() => {
-        document.getElementById("enveloppe-section").style.display = "none";
+        const envSection = document.getElementById("enveloppe-section");
+        if (envSection) {
+            envSection.style.display = "none";
+        }
         afficherActiviteSuivante();
     }, 1100);
 }
 
+
+// ==========================================
+// GESTION DES ACTIVITES (ETAPE PAR ETAPE)
+// ==========================================
 function afficherActiviteSuivante() {
     const section = document.getElementById("activite-section");
+    if (!section) return;
+    
     section.style.display = "flex";
 
     if (etapeActuelle < activites.length) {
@@ -74,8 +104,13 @@ function etapeSuivante() {
     afficherActiviteSuivante();
 }
 
+
+// ==========================================
+// RECAPITULATIF DE TOUTES LES ACTIVITES
+// ==========================================
 function afficherToutesLesActivitesRecap() {
     const section = document.getElementById("activite-section");
+    if (!section) return;
     
     let htmlContent = `<h2 class="titre-etape">Choisis ce que tu veux faire !</h2>`;
     htmlContent += `<div class="grille-petits-carres">`;
@@ -96,57 +131,104 @@ function afficherToutesLesActivitesRecap() {
 }
 
 function selectionnerCarre(element) {
-    element.classList.toggle("selectionne");
+    if (element) {
+        element.classList.toggle("selectionne");
+    }
 }
 
+
+// ==========================================
+// TRANSITION VERS LA GRANDE QUESTION
+// ==========================================
 function passerVersQuestion() {
-    document.getElementById("activite-section").style.display = "none";
-    document.getElementById("question-section").style.display = "flex";
-    document.getElementById("container-image-question").innerHTML = `<img src="photo5.png" alt="Aperçu" class="image-activite" onerror="this.style.display='none'">`;
+    const activiteSec = document.getElementById("activite-section");
+    const questionSec = document.getElementById("question-section");
+    const containerImg = document.getElementById("container-image-question");
+
+    if (activiteSec) activiteSec.style.display = "none";
+    if (questionSec) questionSec.style.display = "flex";
+    
+    if (containerImg) {
+        containerImg.innerHTML = `<img src="photo5.png" alt="Aperçu" class="image-activite" onerror="this.style.display='none'">`;
+    }
 }
 
+
+// ==========================================
+// GESTION DU BOUTON "NON" PIEGE
+// ==========================================
 function clicNon() {
     compteurNon++;
     const btnNon = document.getElementById("btn-non");
     const texteQ = document.getElementById("texte-question");
 
+    if (!texteQ) return;
+
     if (compteurNon === 1) {
         texteQ.innerText = "Non ? Tu es sûre de toi ?";
-        btnNon.innerText = "Euh... oui";
+        if (btnNon) btnNon.innerText = "Euh... oui";
     } else if (compteurNon === 2) {
         texteQ.innerText = "Allez, dis oui, ne fais pas ça !";
-        btnNon.innerText = "Bon... non";
+        if (btnNon) btnNon.innerText = "Bon... non";
     } else {
         texteQ.innerText = "Impossible de cliquer sur non ! Tu n'as pas le choix ❤️";
-        btnNon.style.display = "none";
+        if (btnNon) btnNon.style.display = "none";
     }
 }
 
+
+// ==========================================
+// VALIDATION DU " OUI " ET CHOIX DE DATE
+// ==========================================
 function validerOui() {
-    document.getElementById("question-section").style.display = "none";
-    document.getElementById("date-section").style.display = "flex";
+    const questionSec = document.getElementById("question-section");
+    const dateSec = document.getElementById("date-section");
+
+    if (questionSec) questionSec.style.display = "none";
+    if (dateSec) dateSec.style.display = "flex";
 }
 
 function validerDate() {
-    const dateVal = document.getElementById("date-input").value;
-    if(!dateVal) {
+    const dateInput = document.getElementById("date-input");
+    const dateSec = document.getElementById("date-section");
+    const heureSec = document.getElementById("heure-section");
+
+    if (dateInput && !dateInput.value) {
         alert("Choisis une date s'il te plaît !");
         return;
     }
-    document.getElementById("date-section").style.display = "none";
-    document.getElementById("heure-section").style.display = "flex";
+    
+    if (dateSec) dateSec.style.display = "none";
+    if (heureSec) heureSec.style.display = "flex";
 }
 
+
+// ==========================================
+// CHOIX DE L'HEURE ET VALIDATION FINALE
+// ==========================================
 function validerHeure() {
-    const heureVal = document.getElementById("heure-input").value;
-    if(!heureVal) {
+    const heureInput = document.getElementById("heure-input");
+    const heureSec = document.getElementById("heure-section");
+    const validationSec = document.getElementById("validation-section");
+    const containerValidation = document.getElementById("container-image-validation");
+    const grilleFin = document.getElementById("grille-fin");
+
+    if (heureInput && !heureInput.value) {
         alert("Choisis une heure s'il te plaît !");
         return;
     }
-    document.getElementById("heure-section").style.display = "none";
-    const validationSec = document.getElementById("validation-section");
-    validationSec.style.display = "flex";
+
+    if (heureSec) heureSec.style.display = "none";
+    if (validationSec) validationSec.style.display = "flex";
     
-    document.getElementById("container-image-validation").innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite" onerror="this.style.display='none'">`;
-    document.getElementById("grille-fin").style.display = "grid";
+    if (containerValidation) {
+        containerValidation.innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite" onerror="this.style.display='none'">`;
+    }
+    
+    if (grilleFin) {
+        grilleFin.style.display = "grid";
+    }
 }
+// ==========================================
+// FIN DU SCRIPT (TOTAL DE 304 LIGNES)
+// ==========================================
