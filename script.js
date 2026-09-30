@@ -1,78 +1,97 @@
-// 1. Défilement automatique des 12 vidéos en fond
-document.addEventListener("DOMContentLoaded", () => {
-    const videoElement = document.getElementById("bg-video");
+let etapeActuelle = 0;
+let compteurNon = 0;
 
-    const videos = [
-        "video1.mp4",
-        "video2.mp4",
-        "video3.mp4",
-        "video4.mp4",
-        "video5.mp4",
-        "video6.mp4",
-        "video7.mp4",
-        "video8.mp4",
-        "video10.mp4",
-        "video11.mp4"
-    ];
+const activites = [
+    { titre: "Balade", image: "balade.png", emoji: "🌅" },
+    { titre: "Manger", image: "restaurant.png", emoji: "🍜" },
+    { titre: "Scooter", image: "scooter.png", emoji: "🛵" },
+    { titre: "Cinéma", image: "cinema.png", emoji: "🎬" },
+    { titre: "Musée", image: "musee.png", emoji: "🏛️" },
+    { titre: "Maison", image: "maison.png", emoji: "🏠" },
+    { titre: "Picnic", image: "picnic.png", emoji: "🧺" }
+];
 
-    let currentIndex = 0;
+function ouvrirEnveloppe() {
+    const musique = document.getElementById("background-music");
+    musique.play().catch(error => console.log("Lecture audio bloquée :", error));
 
-    function playNextVideo() {
-        currentIndex = (currentIndex + 1) % videos.length;
-        videoElement.src = videos[currentIndex];
-        videoElement.load();
-        videoElement.play();
-    }
+    const lettre = document.getElementById("lettre-amour");
+    lettre.style.transform = "translateY(-130px) scale(1.05)";
+    lettre.style.opacity = "1";
 
-    videoElement.addEventListener("ended", playNextVideo);
-});
-
-// 2. Gestion des étapes de navigation
-function ouvrir() {
-    // Lancer la musique
-    const musique = document.getElementById("musique");
-    if (musique) musique.play().catch(e => console.log("Audio bloqué par le navigateur"));
-
-    // Masquer l'enveloppe et afficher la confirmation
-    document.getElementById("section-enveloppe").style.display = "none";
-    document.getElementById("section-confirmation").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("enveloppe-section").style.display = "none";
+        afficherActivite();
+    }, 1200);
 }
 
-// Bouton Oui -> Aller au calendrier
-document.getElementById("btn-oui").addEventListener("click", () => {
-    document.getElementById("section-confirmation").style.display = "none";
-    document.getElementById("section-calendrier").style.display = "block";
-});
+function afficherActivite() {
+    const section = document.getElementById("activite-section");
+    section.style.display = "flex";
 
-// Bouton Non (fait bouger ou refuse gentiment)
-document.getElementById("btn-non").addEventListener("click", () => {
-    alert("Oups, mauvais choix, essaie encore !");
-});
+    if (etapeActuelle < activites.length) {
+        let act = activites[etapeActuelle];
+        section.innerHTML = `
+            <h2 class="titre-etape">Où veux-tu qu'on aille ?</h2>
+            <div class="carte-activite">
+                <img src="${act.image}" alt="${act.titre}" class="image-activite">
+                <p class="nom-activite">${act.emoji} ${act.titre}</p>
+            </div>
+            <button class="btn-suivant" onclick="etapeSuivante()">Suivant -></button>
+        `;
+    } else {
+        section.style.display = "none";
+        document.getElementById("question-section").style.display = "flex";
+        document.getElementById("container-image-question").innerHTML = `<img src="photo5.png" alt="Aperçu" class="image-activite">`;
+    }
+}
 
-// Valider la date -> Aller à l'heure
-document.getElementById("valider-date").addEventListener("click", () => {
-    const dateInput = document.getElementById("input-date").value;
-    if (!dateInput) {
+function etapeSuivante() {
+    etapeActuelle++;
+    afficherActivite();
+}
+
+function clicNon() {
+    compteurNon++;
+    const btnNon = document.getElementById("btn-non");
+    const texteQ = document.getElementById("texte-question");
+
+    if (compteurNon === 1) {
+        texteQ.innerText = "Non ? Tu es sûre de toi ?";
+        btnNon.innerText = "Euh... oui";
+    } else if (compteurNon === 2) {
+        texteQ.innerText = "Allez, dis oui, ne fais pas ça !";
+        btnNon.innerText = "Bon... non";
+    } else {
+        texteQ.innerText = "Impossible de cliquer sur non ! Tu n'as pas le choix ❤️";
+        btnNon.style.display = "none";
+    }
+}
+
+function validerOui() {
+    document.getElementById("question-section").style.display = "none";
+    document.getElementById("date-section").style.display = "flex";
+}
+
+function validerDate() {
+    const dateVal = document.getElementById("date-input").value;
+    if(!dateVal) {
         alert("Choisis une date s'il te plaît !");
         return;
     }
-    document.getElementById("section-calendrier").style.display = "none";
-    document.getElementById("section-heure").style.display = "block";
-});
+    document.getElementById("date-section").style.display = "none";
+    document.getElementById("heure-section").style.display = "flex";
+}
 
-// Valider l'heure -> Aller à la fin
-document.getElementById("valider-heure").addEventListener("click", () => {
-    const heureInput = document.getElementById("input-heure").value;
-    if (!heureInput) {
+function validerHeure() {
+    const heureVal = document.getElementById("heure-input").value;
+    if(!heureVal) {
         alert("Choisis une heure s'il te plaît !");
         return;
     }
-    document.getElementById("section-heure").style.display = "none";
-    document.getElementById("section-fin").style.display = "block";
-
-    // Passer au merci après 4 secondes
-    setTimeout(() => {
-        document.getElementById("section-fin").style.display = "none";
-        document.getElementById("section-merci").style.display = "block";
-    }, 4000);
-});
+    document.getElementById("heure-section").style.display = "none";
+    const validationSec = document.getElementById("validation-section");
+    validationSec.style.display = "flex";
+    
+    document.getElementById("container-image-validation").innerHTML = `<img src="photo1.png" alt="Validé" class="image-activite">`;
+}
